@@ -1,7 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.SubmissionDicoding_fundamentalawal" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/b1</item>
+        <item name="colorAccent">@color/b1</item>
+        <item name="colorSecondary">@color/b3</item>
+        <item name="colorTertiary">@color/b6</item>
     </style>
 </resources>

@@ -28,7 +28,7 @@ class MainViewModel : ViewModel() {
     }
 
     init {
-
+        getListUser()
     }
 
     private fun getListUser() {

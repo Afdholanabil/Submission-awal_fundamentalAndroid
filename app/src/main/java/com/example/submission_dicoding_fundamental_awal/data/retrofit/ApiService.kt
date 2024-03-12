@@ -4,11 +4,12 @@ import com.example.submission_dicoding_fundamental_awal.data.response.GithubResp
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("search/users?q={username}")
+    @GET("search/users")
     fun getUser(
-        @Path("username") id : String
+        @Query("q") login : String
     ): Call<GithubResponse>
 }

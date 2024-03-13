@@ -10,7 +10,7 @@
         android:id="@+id/imgList"
         android:layout_width="68dp"
         android:layout_height="68dp"
-        android:src="@drawable/profile_1"
+        android:background="@drawable/rounded_profile"
         tools:ignore="MissingConstraints"
         android:contentDescription="TODO" />
 
@@ -18,9 +18,10 @@
         android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Username"
-        android:layout_marginStart="5dp"
-        android:textSize="15sp"
+        android:text="@string/username"
+        android:fontFamily="@font/satoshibold"
+        android:layout_marginStart="20dp"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@id/imgList"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

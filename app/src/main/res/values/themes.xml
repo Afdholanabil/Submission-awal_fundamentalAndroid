@@ -8,4 +8,10 @@
     </style>
 
     <style name="Theme.SubmissionDicoding_fundamentalawal" parent="Base.Theme.SubmissionDicoding_fundamentalawal" />
+
+    <style name="MyShapeAppearance.SearchBar" parent="ShapeAppearance.MaterialComponents">
+        <item name="cornerFamily">cut</item> <!-- Jenis sudut -->
+        <item name="cornerSize">5dp</item> <!-- Ukuran sudut -->
+    </style>
+
 </resources>

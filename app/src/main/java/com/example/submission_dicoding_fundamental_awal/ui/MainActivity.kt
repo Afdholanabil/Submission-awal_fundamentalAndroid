@@ -3,11 +3,17 @@ package com.example.submission_dicoding_fundamental_awal.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+
+import androidx.appcompat.widget.SearchView
+
+
 
 import com.example.submission_dicoding_fundamental_awal.data.response.ItemsItem
 import com.example.submission_dicoding_fundamental_awal.databinding.ActivityMainBinding
@@ -37,15 +43,25 @@ class MainActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvUser.addItemDecoration(itemDecoration)
 
-        with(binding){
+        with(binding) {
             searchView.setupWithSearchBar(searchBar)
             searchView.editText.setOnEditorActionListener { textView, actionId, event ->
-                searchBar.hint = searchView.text
-                searchView.hide()
-                Toast.makeText(this@MainActivity, searchView.text, Toast.LENGTH_SHORT).show()
+                val searchString = searchView.text.toString().trim()
+
+                if (searchString.isNotEmpty()) {
+                    searchView.hide()
+                    mainViewModel.userSearch(searchString)
+
+                } else {
+                    Log.e("searchView.editText", "Onfailure : Value kosong dan isi searchBar : ${searchString}")
+
+                }
+
                 false
             }
+
         }
+
     }
 
     private fun setListData(consumerList: List<ItemsItem>){

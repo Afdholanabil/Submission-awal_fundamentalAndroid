@@ -1,6 +1,7 @@
 package com.example.submission_dicoding_fundamental_awal.ui
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -55,4 +56,28 @@ class MainViewModel : ViewModel() {
         })
 
     }
+
+    fun userSearch(usernameQ : String) {
+        _loading.value = true
+        val client = ApiConfig.getApiService().getUser(usernameQ) // Pastikan nilai usernameQ disertakan di sini
+        client.enqueue(object : Callback<GithubResponse> {
+            override fun onResponse(
+                call: Call<GithubResponse>,
+                response: Response<GithubResponse>
+            ) {
+                _loading.value = false
+                if (response.isSuccessful) {
+                    _listUser.value = response.body()?.items
+                } else {
+                    Log.e(TAG, "Onfailure : ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
+                _loading.value = false
+                Log.e(TAG, "Onfailure : ${t.message.toString()}")
+            }
+        })
+    }
+
 }

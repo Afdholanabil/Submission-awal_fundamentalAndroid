@@ -1,5 +1,6 @@
 package com.example.submission_dicoding_fundamental_awal.data.retrofit
 
+import com.example.submission_dicoding_fundamental_awal.data.response.DetailUserResponse
 import com.example.submission_dicoding_fundamental_awal.data.response.GithubResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -12,4 +13,9 @@ interface ApiService {
     fun getUser(
         @Query("q") login : String
     ): Call<GithubResponse>
+
+    @GET("users/{username}")
+    fun getDetailUser(
+        @Path("username") username : String
+    ): Call<DetailUserResponse>
 }

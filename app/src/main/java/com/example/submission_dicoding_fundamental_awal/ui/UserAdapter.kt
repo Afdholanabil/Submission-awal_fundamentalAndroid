@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.submission_dicoding_fundamental_awal.R
 import com.example.submission_dicoding_fundamental_awal.data.response.ItemsItem
 
-class UserAdapter (private val userList: List<ItemsItem>, private val context: Context) :
+class UserAdapter (var userList: List<ItemsItem>, private val context: Context) :
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
 
-    private lateinit var onItemClickListener: (ItemsItem) -> Unit
+    private var onItemClickListener: ((ItemsItem) -> Unit)? = null
 
 
     fun setOnItemClickListener(listener: (ItemsItem) -> Unit) {
@@ -33,7 +34,9 @@ class UserAdapter (private val userList: List<ItemsItem>, private val context: C
         val user = userList[position]
         holder.bind(user)
 
-        holder.itemView.setOnClickListener{onItemClickListener(user)}
+        onItemClickListener?.let { listener ->
+            holder.itemView.setOnClickListener { listener(user) }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -50,6 +53,16 @@ class UserAdapter (private val userList: List<ItemsItem>, private val context: C
             imgList.background = ContextCompat.getDrawable(context, R.drawable.rounded_profile)
 
             tvUsername.text = user.login
+        }
+    }
+
+    private class UserDiffCallback : DiffUtil.ItemCallback<ItemsItem>() {
+        override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
+            return oldItem == newItem
         }
     }
 

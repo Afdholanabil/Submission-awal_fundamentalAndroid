@@ -55,6 +55,7 @@
         android:gravity="center">
 
         <TextView
+            android:id="@+id/tv_following"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/following"
@@ -62,9 +63,21 @@
             />
 
         <TextView
+            android:id="@+id/tv_follower"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/following"/>
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?attr/progressBarStyle"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

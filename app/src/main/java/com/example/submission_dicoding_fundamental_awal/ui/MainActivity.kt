@@ -64,22 +64,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         val adapter = UserAdapter(emptyList(),this)
+
         binding.rvUser.adapter = adapter
 
         adapter.setOnItemClickListener { selectedList ->
             val intent = Intent(this, DetailUserActivity::class.java)
-            intent.putExtra("id" , selectedList.id)
+            intent.putExtra("login" , selectedList.login)
             startActivity(intent)
+
         }
 
     }
 
-    private fun setListData(consumerList: List<ItemsItem>){
-        val adapter = UserAdapter(consumerList,this)
-        binding.rvUser.adapter = adapter
-        adapter.notifyDataSetChanged()
-
+    private fun setListData(consumerList: List<ItemsItem>) {
+        (binding.rvUser.adapter as? UserAdapter)?.apply {
+            userList = consumerList
+            notifyDataSetChanged()
+        }
     }
+
+
     private fun showLoading(isLoading : Boolean) {
         if (isLoading) {
             binding.progressBar.visibility =View.VISIBLE

@@ -6,4 +6,15 @@
     <string name="name">Name</string>
     <string name="login">Login</string>
     <string name="following">Following</string>
+
+    <plurals name="follower_plural">
+        <item quantity="one">%d Follower</item>
+        <item quantity="other">%d Followers</item>
+    </plurals>
+
+    <plurals name="following_plural">
+        <item quantity="one">%d Following</item>
+        <item quantity="other">%d Following</item>
+    </plurals>
+
 </resources>

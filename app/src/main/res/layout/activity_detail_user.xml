@@ -59,12 +59,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/following"
+            android:fontFamily="@font/satoshimedium"
             android:layout_marginEnd="80dp"
             />
 
         <TextView
             android:id="@+id/tv_follower"
             android:layout_width="wrap_content"
+            android:fontFamily="@font/satoshimedium"
             android:layout_height="wrap_content"
             android:text="@string/following"/>
     </LinearLayout>

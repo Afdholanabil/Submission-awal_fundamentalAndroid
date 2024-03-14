@@ -1,6 +1,7 @@
 package com.example.submission_dicoding_fundamental_awal.ui
 
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -60,6 +61,15 @@ class MainActivity : AppCompatActivity() {
                 false
             }
 
+        }
+
+        val adapter = UserAdapter(emptyList(),this)
+        binding.rvUser.adapter = adapter
+
+        adapter.setOnItemClickListener { selectedList ->
+            val intent = Intent(this, DetailUserActivity::class.java)
+            intent.putExtra("id" , selectedList.id)
+            startActivity(intent)
         }
 
     }

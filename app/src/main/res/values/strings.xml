@@ -3,4 +3,7 @@
     <string name="masukan_kata">Masukan Username</string>
     <string name="search_activity">Search Activity</string>
     <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="login">Login</string>
+    <string name="following">Following</string>
 </resources>

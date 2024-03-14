@@ -15,6 +15,14 @@ import com.example.submission_dicoding_fundamental_awal.data.response.ItemsItem
 class UserAdapter (private val userList: List<ItemsItem>, private val context: Context) :
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
+
+    private lateinit var onItemClickListener: (ItemsItem) -> Unit
+
+
+    fun setOnItemClickListener(listener: (ItemsItem) -> Unit) {
+        onItemClickListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
@@ -24,6 +32,8 @@ class UserAdapter (private val userList: List<ItemsItem>, private val context: C
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = userList[position]
         holder.bind(user)
+
+        holder.itemView.setOnClickListener{onItemClickListener(user)}
     }
 
     override fun getItemCount(): Int {
@@ -42,4 +52,7 @@ class UserAdapter (private val userList: List<ItemsItem>, private val context: C
             tvUsername.text = user.login
         }
     }
+
+
 }
+

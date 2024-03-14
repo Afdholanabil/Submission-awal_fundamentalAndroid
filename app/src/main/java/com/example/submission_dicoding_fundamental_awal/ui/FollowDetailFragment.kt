@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.submission_dicoding_fundamental_awal.R
+import com.example.submission_dicoding_fundamental_awal.databinding.FragmentFollowDetailBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,12 +19,20 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class FollowDetailFragment : Fragment() {
+
+    private lateinit var binding : FragmentFollowDetailBinding
+
+    private var position : Int = -1
+    private var username : String = ""
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -35,10 +44,27 @@ class FollowDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_follow_detail, container, false)
+        binding = FragmentFollowDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            position = it.getInt(ARG_POSITION)
+            username = it.getString(ARG_USERNAME) ?: ""
+        }
+        if (position == 1) {
+            binding.tv1.text = "Get Following $username"
+        } else {
+            binding.tv1.text = "Get Follower $username"
+        }
     }
 
     companion object {
+        const val ARG_POSITION = "position"
+        const val ARG_USERNAME = "username"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

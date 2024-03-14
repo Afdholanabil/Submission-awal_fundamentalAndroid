@@ -6,15 +6,27 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.StringRes
+import androidx.viewpager2.widget.ViewPager2
 
 import com.bumptech.glide.Glide
 import com.example.submission_dicoding_fundamental_awal.R
 import com.example.submission_dicoding_fundamental_awal.databinding.ActivityDetailUserBinding
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailUserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailUserBinding
     private val detailUserViewModel by viewModels<DetailUserViewModel>()
+
+    companion object {
+        @StringRes
+        private val TAB_TITILES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +72,16 @@ class DetailUserActivity : AppCompatActivity() {
             Log.e("DetailActivity", "onfailure:Data id tidak cocok")
         }
 
+
+        val sectionPagerAdapter = SectionPagerAdapter(this)
+        val viewPager : ViewPager2 = binding.vpFollow
+        viewPager.adapter = sectionPagerAdapter
+        val tabs : TabLayout = binding.tlDetail
+        TabLayoutMediator(tabs, viewPager) {tab, position -> tab.text = resources.getString(
+            TAB_TITILES[position]
+        )}.attach()
+
+        supportActionBar?.elevation = 0f
 
     }
 

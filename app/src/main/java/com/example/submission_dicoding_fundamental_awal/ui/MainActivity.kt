@@ -6,16 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.StringRes
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-
-import androidx.appcompat.widget.SearchView
-
-
-
+import androidx.viewpager2.widget.ViewPager2
+import com.example.submission_dicoding_fundamental_awal.R
 import com.example.submission_dicoding_fundamental_awal.data.response.ItemsItem
 import com.example.submission_dicoding_fundamental_awal.databinding.ActivityMainBinding
 
@@ -52,15 +48,11 @@ class MainActivity : AppCompatActivity() {
                 if (searchString.isNotEmpty()) {
                     searchView.hide()
                     mainViewModel.userSearch(searchString)
-
                 } else {
                     Log.e("searchView.editText", "Onfailure : Value kosong dan isi searchBar : ${searchString}")
-
                 }
-
                 false
             }
-
         }
 
         val adapter = UserAdapter(emptyList(),this)
@@ -71,7 +63,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, DetailUserActivity::class.java)
             intent.putExtra("login" , selectedList.login)
             startActivity(intent)
-
         }
 
     }
@@ -82,7 +73,6 @@ class MainActivity : AppCompatActivity() {
             notifyDataSetChanged()
         }
     }
-
 
     private fun showLoading(isLoading : Boolean) {
         if (isLoading) {

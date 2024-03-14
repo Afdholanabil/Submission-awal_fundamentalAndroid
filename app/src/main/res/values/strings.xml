@@ -16,7 +16,10 @@
         <item quantity="one">%d Following</item>
         <item quantity="other">%d Following</item>
     </plurals>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="tab_text_1">Following</string>
+    <string name="tab_text_2">Followers</string>
 
 </resources>

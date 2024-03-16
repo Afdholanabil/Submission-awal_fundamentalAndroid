@@ -24,7 +24,7 @@ class MainViewModel : ViewModel() {
     val githubResponse : LiveData<GithubResponse> = _githubResponse
 
     companion object {
-        private const val TAG = "MainViewModel"
+        const val TAG = "MainViewModel"
         private const val USER_HINT = "ari"
     }
 
@@ -59,7 +59,7 @@ class MainViewModel : ViewModel() {
 
     fun userSearch(usernameQ : String) {
         _loading.value = true
-        val client = ApiConfig.getApiService().getUser(usernameQ) // Pastikan nilai usernameQ disertakan di sini
+        val client = ApiConfig.getApiService().getUser(usernameQ)
         client.enqueue(object : Callback<GithubResponse> {
             override fun onResponse(
                 call: Call<GithubResponse>,

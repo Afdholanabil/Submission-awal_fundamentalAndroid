@@ -1,12 +1,20 @@
 package com.example.submission_dicoding_fundamental_awal.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
 import com.example.submission_dicoding_fundamental_awal.R
 import com.example.submission_dicoding_fundamental_awal.databinding.FragmentFollowDetailBinding
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.submission_dicoding_fundamental_awal.data.response.ItemsItem
+import com.example.submission_dicoding_fundamental_awal.data.response.followItems
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,8 +29,9 @@ private const val ARG_PARAM2 = "param2"
 class FollowDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentFollowDetailBinding
+    private val followViewModel: DetailUserViewModel by viewModels()
 
-    private var position : Int = -1
+    private var position : Int = 0
     private var username : String = ""
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -34,8 +43,8 @@ class FollowDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            position = it.getInt(ARG_POSITION.toString())
+            username = it.getString(ARG_USERNAME).toString()
         }
     }
 
@@ -43,27 +52,45 @@ class FollowDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentFollowDetailBinding.inflate(inflater, container, false)
+        binding = FragmentFollowDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.let {
-            position = it.getInt(ARG_POSITION)
-            username = it.getString(ARG_USERNAME) ?: ""
+
+        val layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvUserFollow.layoutManager = layoutManager
+        val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
+        binding.rvUserFollow.addItemDecoration(itemDecoration)
+
+        followViewModel.loading.observe(viewLifecycleOwner) {
+            showLoading(it)
         }
+
         if (position == 1) {
-            binding.tv1.text = "Get Following $username"
+
+            followViewModel.listFollow.observe(viewLifecycleOwner) {
+                setListData(it)
+                Log.d(TAG, "Data following: $it")
+            }
+            followViewModel.getListFollowing(username)
+
         } else {
-            binding.tv1.text = "Get Follower $username"
+            followViewModel.listFollow.observe(viewLifecycleOwner) {
+                setListData(it)
+                Log.d(TAG, "Data followers: $it")
+            }
+            followViewModel.getListFollowers(username)
+
         }
+
     }
 
     companion object {
-        const val ARG_POSITION = "position"
+        const val ARG_POSITION = 0
         const val ARG_USERNAME = "username"
+        const val TAG = "FollowDetailFragment"
 
         /**
          * Use this factory method to create a new instance of
@@ -75,12 +102,30 @@ class FollowDetailFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(positionN: Int, usernameN: String) =
             FollowDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putInt(position.toString(), positionN)
+                    putString(ARG_USERNAME, username)
                 }
+
             }
+    }
+
+    private fun setListData(data: List<followItems>) {
+        val adapter = UserFollowAdapter(data, requireActivity())
+        binding.rvUserFollow.adapter = adapter
+
+
+    }
+
+
+
+    private fun showLoading(isLoading : Boolean) {
+        if (isLoading) {
+            binding.progressBarFollow.visibility =View.VISIBLE
+        } else {
+            binding.progressBarFollow.visibility = View.GONE
+        }
     }
 }

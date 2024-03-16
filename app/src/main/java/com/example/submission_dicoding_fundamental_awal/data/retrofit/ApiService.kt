@@ -3,6 +3,7 @@ package com.example.submission_dicoding_fundamental_awal.data.retrofit
 import com.example.submission_dicoding_fundamental_awal.data.response.DetailUserResponse
 import com.example.submission_dicoding_fundamental_awal.data.response.GithubResponse
 import com.example.submission_dicoding_fundamental_awal.data.response.ItemsItem
+import com.example.submission_dicoding_fundamental_awal.data.response.followItems
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -21,12 +22,22 @@ interface ApiService {
     ): Call<DetailUserResponse>
 
     @GET("users/{username}/following")
+    fun getFollowing(
+        @Path("username") username: String
+    ): Call<List<followItems>>
+
+    @GET("users/{username}/followers")
+    fun getFollowers(
+        @Path("username") username: String
+    ): Call<List<followItems>>
+
+    @GET("users/{username}/following")
     fun getDetailFollowing(
         @Path("username") username: String
-    ): Call<List<ItemsItem>>
+    ): Call<GithubResponse>
 
     @GET("users/{username}/followers")
     fun getDetailFollowers(
         @Path("username") username: String
-    ): Call<List<ItemsItem>>
+    ): Call<GithubResponse>
 }

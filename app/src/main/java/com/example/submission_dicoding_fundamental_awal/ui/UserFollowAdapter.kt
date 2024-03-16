@@ -12,8 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.submission_dicoding_fundamental_awal.R
 import com.example.submission_dicoding_fundamental_awal.data.response.ItemsItem
+import com.example.submission_dicoding_fundamental_awal.data.response.followItems
 
-class UserFollowAdapter (var userList: List<ItemsItem>, private val context: Context) :
+class UserFollowAdapter (private val userList: List<followItems>, private val context: Context) :
     RecyclerView.Adapter<UserFollowAdapter.UserFollowViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserFollowViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_follow, parent, false)
@@ -29,21 +30,14 @@ class UserFollowAdapter (var userList: List<ItemsItem>, private val context: Con
         private val img : ImageView = view.findViewById(R.id.imgListFollow)
         private val tvUsername : TextView = view.findViewById(R.id.tv_usernameFollow)
 
-        fun bind(user : ItemsItem) {
+        fun bind(user : followItems) {
             Glide.with(context).load(user.avatarUrl).into(img)
-
-            img.background =  ContextCompat.getDrawable(context, R.drawable.rounded_profile)
 
             tvUsername.text = user.login
         }
-
     }
 
     override fun getItemCount(): Int {
         return userList.size
     }
-
-
-
-
 }

@@ -59,8 +59,8 @@ class DetailUserActivity : AppCompatActivity() {
 
                 Glide.with(this)
                     .load(userDetail.avatarUrl)
-                    .error(R.drawable.profile_1) // Placeholder untuk gambar error
-                    .placeholder(R.drawable.rounded_profile) // Placeholder untuk gambar yang sedang dimuat
+                    .error(R.drawable.profile_1)
+                    .placeholder(R.drawable.rounded_profile)
                     .into(binding.ivUserdetail)
 
             }
@@ -73,9 +73,10 @@ class DetailUserActivity : AppCompatActivity() {
         }
 
 
-        val sectionPagerAdapter = SectionPagerAdapter(this)
+        val sectionPagerAdapter = SectionPagerAdapter(this, login)
         val viewPager : ViewPager2 = binding.vpFollow
         viewPager.adapter = sectionPagerAdapter
+
         val tabs : TabLayout = binding.tlDetail
         TabLayoutMediator(tabs, viewPager) {tab, position -> tab.text = resources.getString(
             TAB_TITILES[position]

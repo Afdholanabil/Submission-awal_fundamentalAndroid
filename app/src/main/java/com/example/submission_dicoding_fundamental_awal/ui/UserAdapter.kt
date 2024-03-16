@@ -55,17 +55,5 @@ class UserAdapter (var userList: List<ItemsItem>, private val context: Context) 
             tvUsername.text = user.login
         }
     }
-
-    private class UserDiffCallback : DiffUtil.ItemCallback<ItemsItem>() {
-        override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-            return oldItem == newItem
-        }
-    }
-
-
 }
 

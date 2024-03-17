@@ -1,38 +1,35 @@
 package com.example.submission_dicoding_fundamental_awal.ui
 
-import android.nfc.Tag
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.submission_dicoding_fundamental_awal.data.response.DetailUserResponse
-import com.example.submission_dicoding_fundamental_awal.data.response.followItems
 import com.example.submission_dicoding_fundamental_awal.data.retrofit.ApiConfig
-import com.example.submission_dicoding_fundamental_awal.data.retrofit.ApiService
+import com.example.submission_dicoding_fundamental_awal.util.Event
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class DetailUserViewModel : ViewModel() {
 
-    private val _userDetailData = MutableLiveData<DetailUserResponse>()
-    val userDetailData : LiveData<DetailUserResponse> = _userDetailData
+    private val _userDetailData = MutableLiveData<Event<DetailUserResponse>>()
+    val userDetailData : LiveData<Event<DetailUserResponse>> = _userDetailData
 
     private val _loading = MutableLiveData<Boolean>()
     val loading : LiveData<Boolean> = _loading
 
-    private val _listFollow = MutableLiveData<List<followItems>>()
-    val listFollow : LiveData<List<followItems>> = _listFollow
+    private val _snackbar = MutableLiveData<Event<String>>()
+    val snackbar : LiveData<Event<String>> = _snackbar
 
     companion object {
         private const val TAG = "DetailUserViewModel"
     }
 
 
-
-    fun getUserDetail(login : String) {
+    fun getUserDetail(login : Event<String?>) {
         _loading.value = true
-        val client = ApiConfig.getApiService().getDetailUser(login)
+        val client = ApiConfig.getApiService().getDetailUser(login.getContentIfNotHandled() ?: "")
         client.enqueue(object : Callback<DetailUserResponse> {
             override fun onResponse(
                 call: Call<DetailUserResponse>,
@@ -40,71 +37,22 @@ class DetailUserViewModel : ViewModel() {
             ) {
                 _loading.value = false
                 if (response.isSuccessful) {
-                    _userDetailData.value = response.body()
+                    _userDetailData.value = Event(response.body()!!)
+                    _snackbar.value = Event("Berhasil menampilkan detail user")
                 } else {
-                    Log.e(TAG, "Onfailure-else : ${response.message()}")
+                    Log.e(TAG, "Onfailure-else : ${response.message()}& code : ${response.code()}")
+                    _snackbar.value = Event("Gagal menampilkan detail user")
                 }
             }
 
             override fun onFailure(call: Call<DetailUserResponse>, t: Throwable) {
                 _loading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
+                _snackbar.value = Event("Gagal memuat data")
+
             }
 
         })
     }
 
-    fun getListFollowing(username : String) {
-        _loading.value = true
-        val client = ApiConfig.getApiService().getFollowing(username)
-        client.enqueue(object : Callback<List<followItems>> {
-            override fun onResponse(
-                call: Call<List<followItems>>,
-                response: Response<List<followItems>>
-            ) {
-                _loading.value = false
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    Log.d(TAG, "Data from API: $data")
-                    _listFollow.value = data!!
-//                    Log.d(TAG, "OnResponse-Following($username) : ${response.message()}")
-                } else {
-//                    Log.e(TAG, "Onfailure-Following-else($username) : ${response.message()}")
-                    Log.e(TAG, "Failed to fetch data: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<List<followItems>>, t: Throwable) {
-                Log.e(TAG, "Onfailure-Following : ${t.message.toString()}")
-            }
-
-        })
-    }
-
-    fun getListFollowers(username: String) {
-        _loading.value = true
-        val client = ApiConfig.getApiService().getFollowers(username)
-        client.enqueue(object : Callback<List<followItems>> {
-            override fun onResponse(
-                call: Call<List<followItems>>,
-                response: Response<List<followItems>>
-            ) {
-                _loading.value = false
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    Log.d(TAG, "Data from API: $data")
-                    _listFollow.value = data!!
-                    //                    Log.d(TAG, "OnResponse-Follower($username) : ${response.message()}")
-                } else {
-//                    Log.e(TAG, "Onfailure-Follower-else($username) : ${response.message()}")
-                    Log.e(TAG, "Failed to fetch data: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<List<followItems>>, t: Throwable) {
-                Log.e(TAG, "Onfailure-Follower : ${t.message.toString()}")
-            }
-
-        })
-    }
 }

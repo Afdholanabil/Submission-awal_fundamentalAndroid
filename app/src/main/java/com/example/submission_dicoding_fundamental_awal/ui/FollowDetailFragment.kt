@@ -6,38 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModel
-import com.example.submission_dicoding_fundamental_awal.R
 import com.example.submission_dicoding_fundamental_awal.databinding.FragmentFollowDetailBinding
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.submission_dicoding_fundamental_awal.data.response.ItemsItem
 import com.example.submission_dicoding_fundamental_awal.data.response.followItems
+import com.google.android.material.snackbar.Snackbar
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FollowDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FollowDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentFollowDetailBinding
-    private val followViewModel: DetailUserViewModel by viewModels()
+    private val followViewModel: FollowDetailViewModel by viewModels()
 
     private var position : Int = 0
     private var username : String = ""
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +34,7 @@ class FollowDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFollowDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -75,6 +58,7 @@ class FollowDetailFragment : Fragment() {
                 Log.d(TAG, "Data following: $it")
             }
             followViewModel.getListFollowing(username)
+            followViewModel.followingSnackbar()
 
         } else {
             followViewModel.listFollow.observe(viewLifecycleOwner) {
@@ -82,9 +66,12 @@ class FollowDetailFragment : Fragment() {
                 Log.d(TAG, "Data followers: $it")
             }
             followViewModel.getListFollowers(username)
-
         }
-
+        followViewModel.snackbar.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let { message ->
+                Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+            }
+        }
     }
 
     companion object {
@@ -92,34 +79,12 @@ class FollowDetailFragment : Fragment() {
         const val ARG_USERNAME = "username"
         const val TAG = "FollowDetailFragment"
 
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FollowDetailFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(positionN: Int, usernameN: String) =
-            FollowDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(position.toString(), positionN)
-                    putString(ARG_USERNAME, username)
-                }
-
-            }
     }
 
     private fun setListData(data: List<followItems>) {
         val adapter = UserFollowAdapter(data, requireActivity())
         binding.rvUserFollow.adapter = adapter
-
-
     }
-
-
 
     private fun showLoading(isLoading : Boolean) {
         if (isLoading) {

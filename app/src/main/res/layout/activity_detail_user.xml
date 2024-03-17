@@ -1,107 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.DetailUserActivity">
 
-    <ImageView
-        android:id="@+id/iv_userdetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/profile_1"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_profile"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/name"
-        android:fontFamily="@font/intersemibold"
-        android:textSize="22sp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/iv_userdetail"/>
-
-    <TextView
-        android:id="@+id/tv_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:textSize="18sp"
-        android:fontFamily="@font/satoshiregular"
-        android:gravity="center"
-
-        app:layout_constraintTop_toBottomOf="@id/tv_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <LinearLayout
-        android:id="@+id/ll_follow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_login"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/tv_following"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/following"
-            android:fontFamily="@font/satoshimedium"
-            android:layout_marginEnd="100dp"
-            />
+            tools:ignore="MissingConstraints">
+                <ImageView
+                    android:id="@+id/iv_userdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/profile_1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/rounded_profile"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
 
-        <TextView
-            android:id="@+id/tv_follower"
-            android:layout_width="wrap_content"
-            android:fontFamily="@font/satoshimedium"
-            android:layout_height="wrap_content"
-            android:text="@string/following"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="30dp"
 
-    <ProgressBar
-        android:id="@+id/progressBarDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="?attr/progressBarStyle"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-    
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tl_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/ll_follow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="?attr/colorPrimary"
-        app:tabTextColor="@color/white"
-        />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/name"
+                    android:fontFamily="@font/intersemibold"
+                    android:textSize="22sp"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    app:layout_constraintStart_toEndOf="@id/iv_userdetail"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_follow"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintTop_toBottomOf="@+id/tl_detail"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+                <TextView
+                    android:id="@+id/tv_login"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/satoshiregular"
+                    android:gravity="start"
+                    android:maxLines="1"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@id/tv_name"
+                    app:layout_constraintStart_toStartOf="@id/tv_name"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/tv_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_login"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_bio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bio"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/interregular"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    app:layout_constraintTop_toBottomOf="@id/divider2"
+                    app:layout_constraintStart_toStartOf="@id/tv_name"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/interregular"
+                    android:gravity="start"
+                    android:maxLines="2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_bio"
+                    app:layout_constraintStart_toStartOf="@id/tv_name"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintTop_toBottomOf="@id/iv_userdetail"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_follow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_following"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/following"
+                            android:fontFamily="@font/satoshibold"
+                            android:layout_marginEnd="100dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_follower"
+                            android:layout_width="wrap_content"
+                            android:fontFamily="@font/satoshibold"
+                            android:layout_height="wrap_content"
+                            android:text="@string/following"/>
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBarDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="?attr/progressBarStyle"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tl_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/ll_follow"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="?attr/colorPrimary"
+                    app:tabTextColor="@color/white"
+
+                    app:tabRippleColor="@color/b3"
+                    />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_follow"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tl_detail"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>

@@ -4,20 +4,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
-
 import com.bumptech.glide.Glide
 import com.example.submission_dicoding_fundamental_awal.R
 import com.example.submission_dicoding_fundamental_awal.databinding.ActivityDetailUserBinding
+import com.example.submission_dicoding_fundamental_awal.util.Event
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailUserActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDetailUserBinding
+    private var binding: ActivityDetailUserBinding? = null
     private val detailUserViewModel by viewModels<DetailUserViewModel>()
 
     companion object {
@@ -31,66 +31,81 @@ class DetailUserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding?.root)
 
         detailUserViewModel.loading.observe(this){
             showLoadingDetail(it)
         }
 
-        val login = intent.getStringExtra("login")
-        if (login!!.isNotEmpty()) {
+        val login  = Event(intent.getStringExtra("login"))
+        if (login.isNotEmpty()) {
+
             detailUserViewModel.getUserDetail(login)
             detailUserViewModel.userDetailData.observe(this) { userDetail ->
+                val unWrappedDataUserDetail = userDetail.getContentIfNotHandled()
 
-                binding.tvLogin.text = userDetail.login
-                binding.tvName.text = userDetail.name
-                binding.tvFollower.text = resources.getQuantityString(
-                    R.plurals.follower_plural,
-                    userDetail.followers,
-                    userDetail.followers
-                )
+                if (unWrappedDataUserDetail != null) {
+                    binding?.tvLogin?.text = unWrappedDataUserDetail.login
+                    binding?.tvName?.text = unWrappedDataUserDetail.name
+                    binding?.tvFollowing?.text = resources.getQuantityString(
+                        R.plurals.following_plural,
+                        unWrappedDataUserDetail.following,
+                        unWrappedDataUserDetail.following
+                    )
 
-                binding.tvFollowing.text = resources.getQuantityString(
-                    R.plurals.following_plural,
-                    userDetail.following,
-                    userDetail.following
-                )
+                    binding?.tvBio?.text = unWrappedDataUserDetail.bio?.toString()
 
+                    binding?.tvLocation?.text = unWrappedDataUserDetail.location?.toString()
 
-                Glide.with(this)
-                    .load(userDetail.avatarUrl)
-                    .error(R.drawable.profile_1)
-                    .placeholder(R.drawable.rounded_profile)
-                    .into(binding.ivUserdetail)
+                    binding?.tvFollower?.text = resources.getQuantityString(
+                        R.plurals.follower_plural,
+                        unWrappedDataUserDetail.followers,
+                        unWrappedDataUserDetail.followers
+                    )
+
+                    Glide.with(this)
+                        .load(unWrappedDataUserDetail.avatarUrl)
+                        .circleCrop()
+                        .error(R.drawable.profile_1)
+                        .placeholder(R.drawable.rounded_profile)
+                        .into(binding?.ivUserdetail!!)
+
+                }
 
             }
 
             Log.d("DetailUserActivity", "Received id: $login")
 
-            Toast.makeText(this, "Berhasil membuka user dengan id : $login", Toast.LENGTH_SHORT ).show()
         } else {
+
             Log.e("DetailActivity", "onfailure:Data id tidak cocok")
+
         }
 
+        detailUserViewModel.snackbar.observe(this){
+            it.getContentIfNotHandled()?.let { snackBar ->
+                Snackbar.make(window.decorView.rootView, snackBar, Snackbar.LENGTH_SHORT).show()
+            }
+        }
 
         val sectionPagerAdapter = SectionPagerAdapter(this, login)
-        val viewPager : ViewPager2 = binding.vpFollow
+        val viewPager : ViewPager2 = binding?.vpFollow!!
         viewPager.adapter = sectionPagerAdapter
 
-        val tabs : TabLayout = binding.tlDetail
+        val tabs : TabLayout = binding?.tlDetail!!
         TabLayoutMediator(tabs, viewPager) {tab, position -> tab.text = resources.getString(
             TAB_TITILES[position]
         )}.attach()
 
         supportActionBar?.elevation = 0f
-
     }
 
     private fun showLoadingDetail(a : Boolean) {
         if (a) {
-            binding.progressBarDetail.visibility = View.VISIBLE
+            binding?.progressBarDetail?.visibility = View.VISIBLE
         } else {
-            binding.progressBarDetail.visibility = View.GONE
+            binding?.progressBarDetail?.visibility = View.GONE
         }
     }
+
 }

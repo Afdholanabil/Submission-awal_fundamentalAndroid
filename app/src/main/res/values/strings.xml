@@ -4,22 +4,24 @@
     <string name="search_activity">Search Activity</string>
     <string name="username">Username</string>
     <string name="name">Name</string>
-    <string name="login">Login</string>
+    <string name="login">Username</string>
     <string name="following">Following</string>
 
     <plurals name="follower_plural">
-        <item quantity="one">%d Follower</item>
-        <item quantity="other">%d Followers</item>
+        <item quantity="one">%d <b>Follower</b></item>
+        <item quantity="other">%d <b>Followers</b></item>
     </plurals>
 
     <plurals name="following_plural">
-        <item quantity="one">%d Following</item>
-        <item quantity="other">%d Following</item>
+        <item quantity="one">%d <b>Following</b></item>
+        <item quantity="other">%d <b>Following</b></item>
     </plurals>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="tab_text_1">Following</string>
     <string name="tab_text_2">Followers</string>
+    <string name="bio">Bio</string>
+    <string name="location">Location</string>
 
 </resources>

@@ -7,11 +7,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.submission_dicoding_fundamental_awal.data.response.ItemsItem
 import com.example.submission_dicoding_fundamental_awal.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,15 +26,21 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        mainViewModel.listUser.observe(this, Observer {
+        mainViewModel.listUser.observe(this) {
                 listuser ->
             setListData(listuser)
             Log.d("MainActivity", "Data main : $listuser")
-        })
+        }
 
 
         mainViewModel.loading.observe(this) {
             showLoading(it)
+        }
+
+        mainViewModel.snackbar.observe(this) {
+            it.getContentIfNotHandled()?.let { snackBar ->
+                Snackbar.make(window.decorView.rootView, snackBar, Snackbar.LENGTH_SHORT).show()
+            }
         }
 
         val layoutManager = LinearLayoutManager(this)
@@ -54,8 +60,10 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         Log.e(
                             "searchView.editText",
-                            "Onfailure : Value kosong dan isi searchBar : ${searchString}"
+                            "Onfailure : Value kosong dan isi searchBar : $searchString"
+
                         )
+                        mainViewModel.searchBarKosong()
                     }
                     false
                 }

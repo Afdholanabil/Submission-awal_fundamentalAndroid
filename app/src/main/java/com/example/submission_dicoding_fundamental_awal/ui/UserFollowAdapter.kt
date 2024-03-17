@@ -6,12 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.submission_dicoding_fundamental_awal.R
-import com.example.submission_dicoding_fundamental_awal.data.response.ItemsItem
 import com.example.submission_dicoding_fundamental_awal.data.response.followItems
 
 class UserFollowAdapter (private val userList: List<followItems>, private val context: Context) :
@@ -31,7 +28,7 @@ class UserFollowAdapter (private val userList: List<followItems>, private val co
         private val tvUsername : TextView = view.findViewById(R.id.tv_usernameFollow)
 
         fun bind(user : followItems) {
-            Glide.with(context).load(user.avatarUrl).into(img)
+            Glide.with(context).load(user.avatarUrl).circleCrop().into(img)
 
             tvUsername.text = user.login
         }

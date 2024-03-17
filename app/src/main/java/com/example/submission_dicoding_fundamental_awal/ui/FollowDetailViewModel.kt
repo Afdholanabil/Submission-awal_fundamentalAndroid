@@ -4,21 +4,15 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.submission_dicoding_fundamental_awal.data.response.GithubResponse
-import com.example.submission_dicoding_fundamental_awal.data.response.ItemsItem
+
 import com.example.submission_dicoding_fundamental_awal.data.response.followItems
 import com.example.submission_dicoding_fundamental_awal.data.retrofit.ApiConfig
+import com.example.submission_dicoding_fundamental_awal.util.Event
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class FollowDetailViewModel : ViewModel() {
-
-//    private val _listFollowing = MutableLiveData<List<ItemsItem>>()
-//    val listFollowing : LiveData<List<ItemsItem>> = _listFollowing
-//
-//    private val _listFollowers = MutableLiveData<List<ItemsItem>>()
-//    val listFollowers : LiveData<List<ItemsItem>> = _listFollowers
 
     private val _listFollow = MutableLiveData<List<followItems>>()
     val listFollow : LiveData<List<followItems>> = _listFollow
@@ -26,9 +20,11 @@ class FollowDetailViewModel : ViewModel() {
     private val _loading = MutableLiveData<Boolean>()
     val loading : LiveData<Boolean> = _loading
 
+    private val _snackbar = MutableLiveData<Event<String>>()
+    val snackbar : LiveData<Event<String>> = _snackbar
+
     companion object {
         private const val TAG = "FollowDetailViewModel"
-        private const val USERNAME = "afdhlanabil"
     }
 
     fun getListFollowing(username : String) {
@@ -41,12 +37,10 @@ class FollowDetailViewModel : ViewModel() {
             ) {
                 _loading.value = false
                 if (response.isSuccessful) {
-                    val data = response.body()
-                    Log.d(TAG, "Data from API: $data")
-                    _listFollow.value = data!!
-//                    Log.d(TAG, "OnResponse-Following($username) : ${response.message()}")
+                    _listFollow.value = response.body()
+                    _snackbar.value = Event("Berhasil menampilkan list following")
                 } else {
-//                    Log.e(TAG, "Onfailure-Following-else($username) : ${response.message()}")
+                    _snackbar.value = Event("Gagal menampilkan list following")
                     Log.e(TAG, "Failed to fetch data: ${response.message()}")
                 }
             }
@@ -68,12 +62,10 @@ class FollowDetailViewModel : ViewModel() {
             ) {
                 _loading.value = false
                 if (response.isSuccessful) {
-                    val data = response.body()
-                    Log.d(TAG, "Data from API: $data")
-                    _listFollow.value = data!!
-                //                    Log.d(TAG, "OnResponse-Follower($username) : ${response.message()}")
+                    _listFollow.value = response.body()
+                    _snackbar.value = Event("Berhasil menampilkan list following")
                 } else {
-//                    Log.e(TAG, "Onfailure-Follower-else($username) : ${response.message()}")
+                    _snackbar.value = Event("Gagal menampilkan list following")
                     Log.e(TAG, "Failed to fetch data: ${response.message()}")
                 }
             }
@@ -83,6 +75,10 @@ class FollowDetailViewModel : ViewModel() {
             }
 
         })
+    }
+
+    fun followingSnackbar() {
+        _snackbar.value = Event("Berhasil menampilkan list following")
     }
 
 }

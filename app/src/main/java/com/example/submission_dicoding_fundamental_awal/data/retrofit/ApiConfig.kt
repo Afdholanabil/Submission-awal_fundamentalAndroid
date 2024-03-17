@@ -1,9 +1,7 @@
 package com.example.submission_dicoding_fundamental_awal.data.retrofit
 
-import com.google.gson.internal.GsonBuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

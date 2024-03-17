@@ -14,8 +14,8 @@ import retrofit2.Response
 
 class FollowDetailViewModel : ViewModel() {
 
-    private val _listFollow = MutableLiveData<List<followItems>>()
-    val listFollow : LiveData<List<followItems>> = _listFollow
+    private val _listFollow = MutableLiveData<List<followItems>?>()
+    val listFollow : LiveData<List<followItems>?> = _listFollow
 
     private val _loading = MutableLiveData<Boolean>()
     val loading : LiveData<Boolean> = _loading
@@ -37,6 +37,11 @@ class FollowDetailViewModel : ViewModel() {
             ) {
                 _loading.value = false
                 if (response.isSuccessful) {
+                    val followsItem = response.body()
+                    if (followsItem.isNullOrEmpty()){
+                        _snackbar.value = Event("Data following kosong")
+
+                    }
                     _listFollow.value = response.body()
                     _snackbar.value = Event("Berhasil menampilkan list following")
                 } else {

@@ -23,5 +23,6 @@
     <string name="tab_text_2">Followers</string>
     <string name="bio">Bio</string>
     <string name="location">Location</string>
+    <string name="data_kosong">Data kosong</string>
 
 </resources>

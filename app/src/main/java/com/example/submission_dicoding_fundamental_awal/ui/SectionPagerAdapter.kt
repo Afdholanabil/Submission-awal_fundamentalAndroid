@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.submission_dicoding_fundamental_awal.util.Event
 
-class SectionPagerAdapter(activity : AppCompatActivity, private val username : Event<String?>) : FragmentStateAdapter(activity) {
+class SectionPagerAdapter(activity : AppCompatActivity, private val username: Event<String?>) : FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int {
         return 2
@@ -16,8 +16,8 @@ class SectionPagerAdapter(activity : AppCompatActivity, private val username : E
         val fragment = FollowDetailFragment()
         fragment.arguments = Bundle().apply {
             putInt(FollowDetailFragment.ARG_POSITION.toString(), position + 1)
-            username.peekContent()?.let { nonNullUsername ->
-                putString(FollowDetailFragment.ARG_USERNAME, nonNullUsername)
+            username.peekContent().let { nonNull ->
+                putString(FollowDetailFragment.ARG_USERNAME, nonNull)
             }
 
         }

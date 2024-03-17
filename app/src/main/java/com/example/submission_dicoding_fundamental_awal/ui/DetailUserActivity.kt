@@ -37,14 +37,17 @@ class DetailUserActivity : AppCompatActivity() {
             showLoadingDetail(it)
         }
 
+
         val login  = Event(intent.getStringExtra("login"))
         if (login.isNotEmpty()) {
+
 
             detailUserViewModel.getUserDetail(login)
             detailUserViewModel.userDetailData.observe(this) { userDetail ->
                 val unWrappedDataUserDetail = userDetail.getContentIfNotHandled()
 
                 if (unWrappedDataUserDetail != null) {
+
                     binding?.tvLogin?.text = unWrappedDataUserDetail.login
                     binding?.tvName?.text = unWrappedDataUserDetail.name
                     binding?.tvFollowing?.text = resources.getQuantityString(
@@ -92,12 +95,14 @@ class DetailUserActivity : AppCompatActivity() {
         val viewPager : ViewPager2 = binding?.vpFollow!!
         viewPager.adapter = sectionPagerAdapter
 
+
         val tabs : TabLayout = binding?.tlDetail!!
         TabLayoutMediator(tabs, viewPager) {tab, position -> tab.text = resources.getString(
             TAB_TITILES[position]
         )}.attach()
 
         supportActionBar?.elevation = 0f
+
     }
 
     private fun showLoadingDetail(a : Boolean) {

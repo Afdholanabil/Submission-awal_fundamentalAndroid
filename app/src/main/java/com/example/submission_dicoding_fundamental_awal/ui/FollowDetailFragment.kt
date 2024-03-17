@@ -51,19 +51,33 @@ class FollowDetailFragment : Fragment() {
             showLoading(it)
         }
 
+
+
         if (position == 1) {
 
-            followViewModel.listFollow.observe(viewLifecycleOwner) {
-                setListData(it)
-                Log.d(TAG, "Data following: $it")
+            followViewModel.listFollow.observe(viewLifecycleOwner) { data ->
+                if (data != null){
+                    setListData(data)
+                    setTextifNull(data)
+                    Log.d(TAG, "Data following: $data")
+                } else {
+                    binding.tvFollow.visibility = View.VISIBLE
+                }
+
             }
             followViewModel.getListFollowing(username)
             followViewModel.followingSnackbar()
 
         } else {
-            followViewModel.listFollow.observe(viewLifecycleOwner) {
-                setListData(it)
-                Log.d(TAG, "Data followers: $it")
+            followViewModel.listFollow.observe(viewLifecycleOwner) { data ->
+                if (data != null){
+                    setListData(data)
+                    setTextifNull(data)
+                    Log.d(TAG, "Data followers: $data")
+                } else {
+                    binding.tvFollow.visibility = View.VISIBLE
+                }
+
             }
             followViewModel.getListFollowers(username)
         }
@@ -85,6 +99,19 @@ class FollowDetailFragment : Fragment() {
         val adapter = UserFollowAdapter(data, requireActivity())
         binding.rvUserFollow.adapter = adapter
     }
+
+    private fun setTextifNull(data: List<followItems>) {
+        val adapter = UserFollowAdapter(data, requireActivity())
+        binding.rvUserFollow.adapter = adapter
+
+        if (data.isEmpty()) {
+            binding.tvFollow.visibility = View.VISIBLE
+        } else {
+            binding.tvFollow.visibility = View.GONE
+        }
+        }
+
+
 
     private fun showLoading(isLoading : Boolean) {
         if (isLoading) {

@@ -7,6 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/b2"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/option_menu"
+            app:title="@string/home"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
     <com.google.android.material.search.SearchBar
         android:id="@+id/searchBar"
         android:layout_width="0dp"
@@ -15,7 +34,7 @@
         app:strokeWidth="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/appLayout">
     </com.google.android.material.search.SearchBar>
 
     <com.google.android.material.search.SearchView

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toolbar
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
@@ -28,6 +29,16 @@ class DetailUserActivity : AppCompatActivity() {
         detailUserViewModel.loading.observe(this){
             showLoadingDetail(it)
         }
+
+        val tb = binding?.topAppBar
+        setSupportActionBar(tb)
+
+        tb?.setNavigationIcon(R.drawable.arrow___left)
+
+        tb?.setNavigationOnClickListener{
+            onBackPressed()
+        }
+
 
 
         val login  = Event(intent.getStringExtra("login"))

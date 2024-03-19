@@ -23,10 +23,6 @@ class MainViewModel : ViewModel() {
     private val _snackbar = MutableLiveData<Event<String>>()
     val snackbar : LiveData<Event<String>> = _snackbar
 
-    companion object {
-        const val TAG = "MainViewModel"
-    }
-
     init {
         getListUser()
     }
@@ -88,6 +84,10 @@ class MainViewModel : ViewModel() {
 
     fun searchBarKosong() {
         _snackbar.value = Event("Masukan kosong!, masukan username yang ingin anda cari")
+    }
+
+    companion object {
+        const val TAG = "MainViewModel"
     }
 
 }

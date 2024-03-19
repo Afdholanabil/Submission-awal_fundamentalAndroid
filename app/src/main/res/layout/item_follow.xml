@@ -11,9 +11,8 @@
         android:id="@+id/imgListFollow"
         android:layout_width="68dp"
         android:layout_height="68dp"
-
         tools:ignore="MissingConstraints"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/todo" />
 
     <TextView
         android:id="@+id/tv_usernameFollow"

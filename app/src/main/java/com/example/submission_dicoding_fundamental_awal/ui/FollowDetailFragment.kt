@@ -51,10 +51,7 @@ class FollowDetailFragment : Fragment() {
             showLoading(it)
         }
 
-
-
         if (position == 1) {
-
             followViewModel.listFollow.observe(viewLifecycleOwner) { data ->
                 if (data != null){
                     setListData(data)
@@ -63,7 +60,6 @@ class FollowDetailFragment : Fragment() {
                 } else {
                     binding.tvFollow.visibility = View.VISIBLE
                 }
-
             }
             followViewModel.getListFollowing(username)
             followViewModel.followingSnackbar()
@@ -88,13 +84,6 @@ class FollowDetailFragment : Fragment() {
         }
     }
 
-    companion object {
-        const val ARG_POSITION = 0
-        const val ARG_USERNAME = "username"
-        const val TAG = "FollowDetailFragment"
-
-    }
-
     private fun setListData(data: List<followItems>) {
         val adapter = UserFollowAdapter(data, requireActivity())
         binding.rvUserFollow.adapter = adapter
@@ -109,9 +98,7 @@ class FollowDetailFragment : Fragment() {
         } else {
             binding.tvFollow.visibility = View.GONE
         }
-        }
-
-
+    }
 
     private fun showLoading(isLoading : Boolean) {
         if (isLoading) {
@@ -119,5 +106,12 @@ class FollowDetailFragment : Fragment() {
         } else {
             binding.progressBarFollow.visibility = View.GONE
         }
+    }
+
+    companion object {
+        const val ARG_POSITION = 0
+        const val ARG_USERNAME = "username"
+        const val TAG = "FollowDetailFragment"
+
     }
 }

@@ -23,10 +23,6 @@ class FollowDetailViewModel : ViewModel() {
     private val _snackbar = MutableLiveData<Event<String>>()
     val snackbar : LiveData<Event<String>> = _snackbar
 
-    companion object {
-        private const val TAG = "FollowDetailViewModel"
-    }
-
     fun getListFollowing(username : String) {
         _loading.value = true
         val client = ApiConfig.getApiService().getFollowing(username)
@@ -86,4 +82,7 @@ class FollowDetailViewModel : ViewModel() {
         _snackbar.value = Event("Berhasil menampilkan list following")
     }
 
+    companion object {
+        private const val TAG = "FollowDetailViewModel"
+    }
 }

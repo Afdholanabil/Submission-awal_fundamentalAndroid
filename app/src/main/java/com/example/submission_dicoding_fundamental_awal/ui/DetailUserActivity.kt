@@ -20,14 +20,6 @@ class DetailUserActivity : AppCompatActivity() {
     private var binding: ActivityDetailUserBinding? = null
     private val detailUserViewModel by viewModels<DetailUserViewModel>()
 
-    companion object {
-        @StringRes
-        private val TAB_TITILES = intArrayOf(
-            R.string.tab_text_1,
-            R.string.tab_text_2
-        )
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
@@ -111,6 +103,14 @@ class DetailUserActivity : AppCompatActivity() {
         } else {
             binding?.progressBarDetail?.visibility = View.GONE
         }
+    }
+
+    companion object {
+        @StringRes
+        private val TAB_TITILES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2
+        )
     }
 
 }

@@ -22,11 +22,6 @@ class DetailUserViewModel : ViewModel() {
     private val _snackbar = MutableLiveData<Event<String>>()
     val snackbar : LiveData<Event<String>> = _snackbar
 
-    companion object {
-        private const val TAG = "DetailUserViewModel"
-    }
-
-
     fun getUserDetail(login : Event<String?>) {
         _loading.value = true
         val client = ApiConfig.getApiService().getDetailUser(login.getContentIfNotHandled() ?: "")
@@ -53,6 +48,10 @@ class DetailUserViewModel : ViewModel() {
             }
 
         })
+    }
+
+    companion object {
+        private const val TAG = "DetailUserViewModel"
     }
 
 }

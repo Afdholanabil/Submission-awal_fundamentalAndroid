@@ -15,6 +15,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String","BASE_URL","\"https://api.github.com/\"")
+        buildConfigField("String", "KEY", "\"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\"")
     }
 
     buildTypes {
@@ -36,6 +39,8 @@ android {
 
     buildFeatures {
         viewBinding = true
+
+        buildConfig = true
     }
 }
 

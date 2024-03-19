@@ -24,5 +24,6 @@
     <string name="bio">Bio</string>
     <string name="location">Location</string>
     <string name="data_kosong">Data kosong</string>
+    <string name="todo">TODO</string>
 
 </resources>

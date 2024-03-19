@@ -15,7 +15,7 @@
                     android:background="@drawable/rounded_profile"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    />
+                    android:contentDescription="@string/todo" />
 
                 <TextView
                     android:id="@+id/tv_name"

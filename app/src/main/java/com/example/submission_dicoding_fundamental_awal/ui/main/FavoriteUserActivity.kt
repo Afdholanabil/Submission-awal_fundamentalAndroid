@@ -1,4 +1,4 @@
-package com.example.submission_dicoding_fundamental_awal.ui
+package com.example.submission_dicoding_fundamental_awal.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

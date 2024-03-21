@@ -63,8 +63,9 @@ class DetailUserViewModel(application: Application) : ViewModel() {
         mFavoriteUserRepository.insert(favoriteUser)
     }
 
-    fun delete(favoriteUser: FavoriteUser) {
-        mFavoriteUserRepository.delete(favoriteUser)
+    fun delete(username: String?) {
+        val favUser = FavoriteUser(username ?: "")
+        mFavoriteUserRepository.delete(favUser)
     }
 
     fun getFavoriteUserByUsername(username: String?): LiveData<FavoriteUser> {

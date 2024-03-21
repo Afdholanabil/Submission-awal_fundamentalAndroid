@@ -27,7 +27,7 @@ class FavoriteUserRepository(application: Application) {
     }
 
     fun delete(favoriteUser: FavoriteUser){
-        executorService.execute { mFavoriteUserDao.delete(favoriteUser) }
+        executorService.execute { mFavoriteUserDao.deleteFavoriteUserByUsername(favoriteUser) }
     }
 
     fun update(favoriteUser: FavoriteUser){

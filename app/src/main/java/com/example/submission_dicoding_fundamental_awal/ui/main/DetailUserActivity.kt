@@ -115,17 +115,26 @@ class DetailUserActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0f
 
         binding?.fbAddFav?.setOnClickListener{
+            if (isFav) {
+//                favoriteUser = FavoriteUser(login ?: "", detailUserViewModel.userAvatarUrl ?: "")
+                detailUserViewModel.delete(login!!)
+                Log.d("detailUserActivity","Berhasil delete fav si$login")
+            } else {
                 Log.d("detailUserActivity","Berhasil insert fav si$login")
                 favoriteUser = FavoriteUser(login ?: "", detailUserViewModel.userAvatarUrl ?: "")
                 detailUserViewModel.insert(favoriteUser as FavoriteUser)
+            }
+
 
         }
 
         detailUserViewModel.getFavoriteUserByUsername(login).observe(this) { favoriteUser ->
             if (favoriteUser != null) {
                 binding?.fbAddFav?.setImageResource(R.drawable.star)
+                isFav = true
             } else {
                 binding?.fbAddFav?.setImageResource(R.drawable.star_broken)
+                isFav = false
             }
         }
 

@@ -9,6 +9,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.submission_dicoding_fundamental_awal.R
 import com.example.submission_dicoding_fundamental_awal.data.response.ItemsItem
 import com.example.submission_dicoding_fundamental_awal.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
@@ -80,6 +81,22 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding?.topAppBar?.setOnMenuItemClickListener{ menuItem ->
+            when(menuItem.itemId) {
+                R.id.menu1 ->{
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.menu2 ->{
+                    val intent = Intent(this, FavoriteUserActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 
     private fun setListData(consumerList: List<ItemsItem>) {

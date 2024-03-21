@@ -1,20 +1,23 @@
 package com.example.submission_dicoding_fundamental_awal.ui.main
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.submission_dicoding_fundamental_awal.data.response.DetailUserResponse
 import com.example.submission_dicoding_fundamental_awal.data.retrofit.ApiConfig
+import com.example.submission_dicoding_fundamental_awal.database.FavoriteUser
+import com.example.submission_dicoding_fundamental_awal.repository.FavoriteUserRepository
 import com.example.submission_dicoding_fundamental_awal.util.Event
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailUserViewModel : ViewModel() {
+class DetailUserViewModel(application: Application) : ViewModel() {
 
-    private val _userDetailData = MutableLiveData<Event<DetailUserResponse>>()
-    val userDetailData : LiveData<Event<DetailUserResponse>> = _userDetailData
+    private val _userDetailData = MutableLiveData<DetailUserResponse>()
+    val userDetailData : LiveData<DetailUserResponse> = _userDetailData
 
     private val _loading = MutableLiveData<Boolean>()
     val loading : LiveData<Boolean> = _loading
@@ -22,9 +25,14 @@ class DetailUserViewModel : ViewModel() {
     private val _snackbar = MutableLiveData<Event<String>>()
     val snackbar : LiveData<Event<String>> = _snackbar
 
-    fun getUserDetail(login : Event<String?>) {
+    private val mFavoriteUserRepository: FavoriteUserRepository = FavoriteUserRepository(application)
+    lateinit var userAvatarUrl: String
+
+    private val isUserInRoom = MutableLiveData<Boolean>()
+
+    fun getUserDetail(login : String) {
         _loading.value = true
-        val client = ApiConfig.getApiService().getDetailUser(login.getContentIfNotHandled() ?: "")
+        val client = ApiConfig.getApiService().getDetailUser(login)
         client.enqueue(object : Callback<DetailUserResponse> {
             override fun onResponse(
                 call: Call<DetailUserResponse>,
@@ -32,7 +40,8 @@ class DetailUserViewModel : ViewModel() {
             ) {
                 _loading.value = false
                 if (response.isSuccessful) {
-                    _userDetailData.value = Event(response.body()!!)
+                    _userDetailData.value = response.body()
+                    userAvatarUrl = response.body()?.avatarUrl.toString()
                     _snackbar.value = Event("Berhasil menampilkan detail user")
                 } else {
                     Log.e(TAG, "Onfailure-else : ${response.message()}& code : ${response.code()}")
@@ -48,6 +57,18 @@ class DetailUserViewModel : ViewModel() {
             }
 
         })
+    }
+
+    fun insert(favoriteUser: FavoriteUser) {
+        mFavoriteUserRepository.insert(favoriteUser)
+    }
+
+    fun delete(favoriteUser: FavoriteUser) {
+        mFavoriteUserRepository.delete(favoriteUser)
+    }
+
+    fun getFavoriteUserByUsername(username: String?): LiveData<FavoriteUser> {
+        return mFavoriteUserRepository.getFavoriteUserByUsername(username!!)
     }
 
     companion object {

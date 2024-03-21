@@ -17,7 +17,7 @@ interface ApiService {
 
     @GET("users/{username}")
     fun getDetailUser(
-        @Path("username") username : String
+        @Path("username") username : String?
     ): Call<DetailUserResponse>
 
     @GET("users/{username}/following")

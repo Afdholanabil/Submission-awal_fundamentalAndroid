@@ -20,6 +20,7 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/option_menu"
             app:title="Detail User"/>
     </com.google.android.material.appbar.AppBarLayout>
 

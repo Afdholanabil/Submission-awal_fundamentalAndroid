@@ -17,13 +17,14 @@ import com.google.android.material.snackbar.Snackbar
 class MainActivity : AppCompatActivity() {
 
     private var binding : ActivityMainBinding? = null
+    val _binding get() = binding
     private val mainViewModel by viewModels<MainViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
+        setContentView(_binding?.root)
 
         supportActionBar?.hide()
 
@@ -112,6 +113,11 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding?.progressBar?.visibility = View.GONE
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
 }

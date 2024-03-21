@@ -28,5 +28,6 @@
     <string name="menu_1">menu_1</string>
     <string name="menu_2">menu_2</string>
     <string name="home">Home</string>
+    <string name="favorited_user">Favorited User</string>
 
 </resources>

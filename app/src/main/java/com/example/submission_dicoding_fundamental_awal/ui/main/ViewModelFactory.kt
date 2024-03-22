@@ -4,6 +4,7 @@ import android.app.Application
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.submission_dicoding_fundamental_awal.util.SettingPreference
 
 class ViewModelFactory private constructor(private val mApplication: Application): ViewModelProvider.NewInstanceFactory(){
     companion object {
@@ -28,7 +29,6 @@ class ViewModelFactory private constructor(private val mApplication: Application
         } else if (modelClass.isAssignableFrom(FavoriteUserViewModel::class.java)){
             return FavoriteUserViewModel(mApplication) as T
         }
-
         throw IllegalArgumentException("Unknown ViewModel class ${modelClass.name}")
     }
 }

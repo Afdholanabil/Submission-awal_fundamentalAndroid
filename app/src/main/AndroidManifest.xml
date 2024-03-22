@@ -15,6 +15,9 @@
         android:theme="@style/Theme.SubmissionDicoding_fundamentalawal"
         tools:targetApi="31">
         <activity
+            android:name=".ui.main.PengaturanActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.FavoriteUserActivity"
             android:exported="false" />
         <activity

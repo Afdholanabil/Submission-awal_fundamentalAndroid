@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         binding?.topAppBar?.setOnMenuItemClickListener{ menuItem ->
             when(menuItem.itemId) {
                 R.id.menu1 ->{
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, PengaturanActivity::class.java)
                     startActivity(intent)
                     true
                 }

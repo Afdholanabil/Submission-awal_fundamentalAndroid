@@ -14,4 +14,13 @@
         <item name="cornerSize">5dp</item> <!-- Ukuran sudut -->
     </style>
 
+    <style name="CustomSwitch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+
+        <item name="colorSwitchThumbNormal">@color/b1</item>
+
+
+    </style>
+
+
+
 </resources>

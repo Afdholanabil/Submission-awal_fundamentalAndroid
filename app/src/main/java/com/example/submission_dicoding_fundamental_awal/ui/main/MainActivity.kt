@@ -7,11 +7,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.submission_dicoding_fundamental_awal.R
 import com.example.submission_dicoding_fundamental_awal.data.response.ItemsItem
 import com.example.submission_dicoding_fundamental_awal.databinding.ActivityMainBinding
+import com.example.submission_dicoding_fundamental_awal.util.SettingPreference
+import com.example.submission_dicoding_fundamental_awal.util.dataStore
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +31,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(_binding?.root)
 
         supportActionBar?.hide()
+
+        val pref = SettingPreference.getInstance(application.dataStore)
+        val mainViewModel = ViewModelProvider(this, ViewModelPengaturanFactory(pref)).get(
+            MainViewModel::class.java
+        )
+
+        mainViewModel.getSettingTheme().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
 
         mainViewModel.listUser.observe(this) {
                 listuser ->

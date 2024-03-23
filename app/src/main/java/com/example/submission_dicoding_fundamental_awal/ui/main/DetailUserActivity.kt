@@ -16,6 +16,7 @@ import com.example.submission_dicoding_fundamental_awal.R
 import com.example.submission_dicoding_fundamental_awal.database.FavoriteUser
 import com.example.submission_dicoding_fundamental_awal.databinding.ActivityDetailUserBinding
 import com.example.submission_dicoding_fundamental_awal.util.Event
+import com.example.submission_dicoding_fundamental_awal.util.dataStore
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
